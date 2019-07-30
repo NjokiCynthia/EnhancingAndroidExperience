@@ -22,20 +22,18 @@ public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapte
         mLayoutInflater = LayoutInflater.from(mContext);
     }
 
-    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-       // View itemView = mLayoutInflater.inflate(R.layout.item_note_list, parent, false);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = mLayoutInflater.inflate(R.layout.item_note_list, parent, false);
         return new ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        NoteInfo note = mNotes.get(i);
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+        NoteInfo note = mNotes.get(position);
         viewHolder.mTextCourse.setText(note.getCourse().getTitle());
         viewHolder.mTextTitle.setText(note.getTitle());
-        viewHolder.mi = i;
+        viewHolder.mCurrentPosition = position;
 
     }
 
@@ -48,18 +46,19 @@ public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapte
 
         public final TextView mTextCourse;
         public final TextView mTextTitle;
-        public int mi;
+        public int mCurrentPosition;
 
-        public ViewHolder(@NonNull final View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
             mTextCourse = itemView.findViewById(R.id.text_course);
             mTextTitle = itemView.findViewById(R.id.text_title);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mContext, NoteActivity.class);
-                    intent.putExtra(NoteActivity.NOTE_POSITION, mi);
-                    mContext.startActivity(intent);
+                    Intent intent = new Intent(v.getContext(), NoteActivity.class);
+                    intent.putExtra(NoteActivity.NOTE_POSITION, mCurrentPosition);
+                    v.getContext().startActivity(intent);
                 }
             });
         }

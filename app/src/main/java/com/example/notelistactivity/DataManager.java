@@ -50,6 +50,7 @@ public class DataManager {
     }
 
     public void removeNote(int index) {
+
         mNotes.remove(index);
     }
 

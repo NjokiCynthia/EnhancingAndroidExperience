@@ -3,9 +3,6 @@ package com.example.notelistactivity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by Jim.
- */
 
 public final class NoteInfo implements Parcelable {
     private CourseInfo mCourse;
@@ -84,8 +81,8 @@ public final class NoteInfo implements Parcelable {
         dest.writeString(mText);
     }
 
-    public final static Creator<NoteInfo> CREATOR =
-            new Creator<NoteInfo>() {
+    public final static Parcelable.Creator<NoteInfo> CREATOR =
+            new Parcelable.Creator<NoteInfo>() {
 
                 @Override
                 public NoteInfo createFromParcel(Parcel source) {
